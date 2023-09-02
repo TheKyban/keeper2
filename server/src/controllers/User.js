@@ -145,6 +145,9 @@ exports.Logout = async (req, res) => {
     return res.cookie('token', '', {
         httpOnly: true,
         expires: 0, // 24hrs
-        maxAge:0
-    }).send();
+        maxAge: 0
+    }).json({
+        success: true,
+        message: "user logged out"
+    });
 };
