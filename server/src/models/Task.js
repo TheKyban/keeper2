@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = new mongoose.Schema({
-    List: {
+    list: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'List',
         required: true
