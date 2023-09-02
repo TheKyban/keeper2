@@ -1,0 +1,101 @@
+@import "../../styles/global.scss";
+
+#home {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "poppins";
+	height: calc(100vh - 70px);
+    width: 100vw;
+    text-align: center;
+	background-color: $homeBGcolor;
+	overflow: hidden;
+}
+
+#left {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    gap: 30px;
+    padding: 25px;
+}
+
+#left p {
+	font-size: $mediumFontSize;
+}
+
+#left button {
+	background: linear-gradient(to right, $btnFirstBgColor, $textcolor);
+	outline: none;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 5px;
+	box-shadow: 3px 3px 3px $textShadow;
+}
+
+#left button a {
+	font-size: 2.5rem;
+	color: #fff;
+	text-decoration: none;
+	font-family: "Ubuntu", sans-serif;
+}
+
+#right {
+	width: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#right > img {
+	width: 30rem;
+	animation: upDown 1s infinite alternate-reverse;
+}
+
+@keyframes upDown {
+	0% {
+		transform: translateY(0);
+	}
+	100% {
+		transform: translateY(-10px);
+	}
+}
+
+@media screen and (max-width: 850px) {
+	#home {
+		flex-direction: column;
+	}
+
+	#left {
+		width: unset;
+        gap: 40px;
+	}
+	#home p {
+		font-size: 1.2rem;
+	}
+	#left button a {
+		font-size: 2rem;
+	}
+
+	#right {
+		width: unset;
+		height: 50%;
+	}
+}
+
+@media screen and (max-width: 610px) {
+	#right > img {
+		width: 25rem;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	#left button a {
+		font-size: $mediumFontSize;
+	}
+	#right > img {
+		width: 18rem;
+	}
+}

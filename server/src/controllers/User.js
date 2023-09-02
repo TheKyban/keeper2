@@ -15,7 +15,8 @@ exports.Register = async (req, res) => {
 
         if (!firstName || !lastName || !email || !password) {
             return res.json({
-                message: 'all parameter is required'
+                message: "all parameter is required",
+                success: false,
             });
         }
 
@@ -28,6 +29,7 @@ exports.Register = async (req, res) => {
         if (isUserExist) {
             return res.json({
                 message: "user Already exist",
+                success: false,
             });
         }
 
@@ -48,17 +50,24 @@ exports.Register = async (req, res) => {
             password: hashedPassword,
         });
 
-
         /**
          * send response
-        */
+         */
 
-
-        res.json({
-            message: 'Successfully registered'
+        res.cookie("token", newUser._id, {
+            httpOnly: true,
+            expires: 1000 * 60 * 60 * 24, // 24hrs
+            maxAge: 1000 * 60 * 60 * 24, // 24hrs
+        }).json({
+            message: "Successfully registered",
+            success: true,
+            user: {
+                _id: newUser._id,
+                firstName: newUser.firstName,
+                lastName: newUser.lastName,
+                email: newUser.email,
+            },
         });
-
-
     } catch (error) {
         console.log(error);
     }
@@ -78,7 +87,8 @@ exports.Login = async (req, res) => {
 
         if (!email || !password) {
             return res.json({
-                message: 'enter all fields'
+                message: "enter all fields",
+                success: false,
             });
         }
 
@@ -90,10 +100,10 @@ exports.Login = async (req, res) => {
 
         if (!isUserExist) {
             return res.json({
-                message: 'user not exist'
+                message: "user not exist",
+                success: false,
             });
         }
-
 
         /**
          * Check password is correct or not
@@ -103,23 +113,38 @@ exports.Login = async (req, res) => {
 
         if (!isMatch) {
             return res.json({
-                message: 'wrong password'
+                message: "wrong password",
+                success: false,
             });
         }
 
         /**
          * send response
          */
-        res.cookie('token', isUserExist._id, {
+        res.cookie("token", isUserExist._id, {
             httpOnly: true,
-            expire: 1000 * 60 * 60 * 24 // 24hrs
+            expires: 1000 * 60 * 60 * 24, // 24hrs
+            maxAge: 1000 * 60 * 60 * 24, // 24hrs
         }).json({
-            _id: isUserExist._id,
-            firstName: isUserExist.firstName,
-            lastName: isUserExist.lastName,
-            email: isUserExist.email,
+            message: `Welcome back ${isUserExist.firstName}`,
+            success: true,
+            user: {
+                _id: isUserExist._id,
+                firstName: isUserExist.firstName,
+                lastName: isUserExist.lastName,
+                email: isUserExist.email,
+            },
         });
     } catch (error) {
         console.log(error);
     }
+};
+
+
+exports.Logout = async (req, res) => {
+    return res.cookie('token', '', {
+        httpOnly: true,
+        expires: 0, // 24hrs
+        maxAge:0
+    }).send();
 };

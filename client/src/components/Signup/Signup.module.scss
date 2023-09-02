@@ -1,0 +1,11 @@
+@import "../Login//Login.module.scss";
+
+.login .name {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+.login .name input {
+	width: 100%;
+}

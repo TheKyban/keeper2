@@ -1,0 +1,77 @@
+@import "../../styles/global.scss";
+
+.login {
+	width: 500px;
+	height: fit-content;
+	text-align: center;
+	background-color: $formBG;
+	padding: $formPadding;
+	font-family: "Poppins";
+	box-shadow: 3px 3px 6px $textShadow;
+	border-radius: 3;
+}
+
+// Heading
+.login h3 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+	color: #385dc4;
+}
+
+// form
+.login form {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	text-align: start;
+}
+.login form label {
+	font-size: $smallFont;
+	margin-bottom: 5px;
+}
+.login form label span {
+	color: goldenrod;
+	cursor: pointer;
+}
+
+.login form input {
+	outline: none;
+	margin-bottom: 10px;
+	font-size: $smallFont;
+	padding: $paddingInsideInput;
+	border: 1px solid $BorderColor;
+}
+
+.login form input:focus {
+	border: 1px solid $inputFocusColor;
+}
+.login p {
+	font-size: 0.9rem;
+}
+.login p span {
+	color: #3fad51;
+	cursor: pointer;
+}
+
+.login button {
+	margin: 20px 0;
+	background-color: $btnBG;
+	font-size: $smallFont;
+	padding: $paddingInsideInput;
+}
+
+@media screen and (max-width: 750px) {
+	.login {
+		width: 60%;
+	}
+}
+@media screen and (max-width: 650px) {
+	.login {
+		width: 70%;
+	}
+}
+@media screen and (max-width: 470px) {
+	.login {
+		width: 90%;
+	}
+}

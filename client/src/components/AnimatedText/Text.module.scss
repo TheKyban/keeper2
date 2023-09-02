@@ -1,0 +1,39 @@
+@import "../../styles/global.scss";
+
+
+#text {
+	font-size: 5rem;
+	width: fit-content;
+	text-transform: uppercase;
+	color: transparent;
+	-webkit-text-stroke: 1px $textcolor;
+	position: relative;
+	font-family: monospace;
+}
+
+#text::before {
+	content: attr(data-text);
+	position: absolute;
+	width: 0%;
+	top: 0;
+	left: 0;
+	height: 100%;
+	color: $textcolor;
+	-webkit-text-stroke: 1px $textcolor;
+	overflow: hidden;
+	border-right: 2px solid $textcolor;
+	animation: textFill 3.5s linear infinite;
+}
+
+@keyframes textFill {
+	0%,
+	20%,
+	100% {
+		width: 0%;
+	}
+
+	70%,
+	90% {
+		width: 100%;
+	}
+}

@@ -1,0 +1,10 @@
+@import "../../styles/global.scss";
+
+.auth {
+	width: 100vw;
+	height: $pageheight;
+	display: flex;
+    justify-content: center;
+    padding-top: 150px;
+    background-color: $homeBGcolor;
+}
