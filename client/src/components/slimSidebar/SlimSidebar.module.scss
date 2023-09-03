@@ -1,0 +1,25 @@
+@import "../../styles//global.scss";
+
+.sidebar {
+	height: $pageheight;
+    background-color: $sidebarBg;
+    width: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 10px 0;
+}
+
+.arrow {
+	background-color: $btnBG;
+	@include flex-center();
+	padding: 2px 3px 2px 0;
+	border-radius: 4px;
+	cursor: pointer;
+    width: fit-content;
+
+	img {
+		width: 25px;
+		transform: rotate(90deg);
+	}
+}

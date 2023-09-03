@@ -1,1 +1,113 @@
 @import "../../styles//global.scss";
+
+.keeper {
+	display: flex;
+	width: 100vw;
+	height: $pageheight;
+}
+
+.right * {
+	all: revert;
+}
+
+.right {
+	display: flex;
+	background-color: $navbarLogoColor;
+	width: 100%;
+	overflow: auto;
+	padding: 15px;
+	gap: 15px;
+}
+
+// create list
+
+.addCard {
+	@include flex-column();
+	justify-content: flex-start;
+	gap: 5px;
+	height: fit-content;
+	padding: 15px 10px;
+	border-radius: 5px;
+
+	font-family: "poppins";
+	background-color: black;
+
+	.btns {
+		display: flex;
+		gap: 15px;
+		margin-top: 5px;
+	}
+}
+
+.title {
+	@include outline-none();
+	font-size: 0.9rem;
+	border-radius: 3px;
+	background-color: #22272b;
+	font-family: "poppins";
+	padding: 3px 15px;
+	border: 3px solid #579dff;
+	color: #fff;
+	&:focus {
+		outline: none;
+	}
+}
+
+.addCardBtn,
+.exitBtn {
+	@include outline-none();
+	font-family: "poppins";
+	transition: all 0.2s;
+	cursor: pointer;
+}
+
+.addCardBtn {
+	padding: 5px 5px;
+	border-radius: 3px;
+	background-color: #4286e4;
+	color: black;
+	&:hover {
+		background-color: #85b8ff;
+	}
+}
+
+.exitBtn {
+	background-color: transparent;
+	color: #c9c1c1;
+	font-weight: bold;
+	font-size: 1rem;
+	width: 2rem;
+	border-radius: 3px;
+
+	&:hover {
+		background-color: #579dff;
+		color: black;
+	}
+}
+
+
+.anotherList {
+	background-color:  #c2bdbd9a;
+	width: 200px;
+	min-width: 200px;
+	height: fit-content;
+	@include flex-align-center();
+	gap: 15px;
+	padding: 5px 15px;
+	border-radius: 8px;
+	cursor: pointer;
+
+	>span {
+		font-family: 'poppins';
+		font-weight: 500;
+	}
+	>span:first-of-type {
+		font-size: 2rem;
+		font-weight: normal;
+	}
+
+	&:hover {
+		background-color:  #afa2a29a;
+	}
+
+}

@@ -13,7 +13,6 @@ exports.Reload = async (req, res) => {
         }
 
         const user = await User.findById(token);
-        console.log(user);
 
         if (!user) {
             return res.json({

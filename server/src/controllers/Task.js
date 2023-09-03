@@ -2,12 +2,12 @@ const Task = require('../models/Task.js');
 const List = require('../models/List.js');
 // create task
 exports.createTask = async (req, res) => {
-    const { listId, name, description } = req.body;
+    const { boardId, listId, name, description } = req.body;
     try {
-        if (!listId || !name) {
+        if (!boardId || !listId) {
             return res.json({
                 success: false,
-                message: "provide listId and task name"
+                message: "provide listId and boardId"
             });
         }
 
@@ -21,8 +21,9 @@ exports.createTask = async (req, res) => {
         }
 
         const task = await Task.create({
+            board: boardId,
             list: listId,
-            name,
+            name: name ? name : "untitled",
             description
         });
 
@@ -92,16 +93,23 @@ exports.updateTask = async (req, res) => {
 };
 // find all list of a board
 exports.findAllTasks = async (req, res) => {
-    const { listId } = req.body;
+    const { listId, boardId } = req.body;
     try {
-        if (!listId) {
+        if (!boardId && !listId) {
             return res.json({
                 success: false,
-                message: 'provide list Id'
+                message: 'provide list Id or boardId'
             });
         }
-        const allTask = await Task.find({ list: listId });
-        res.json(allTask);
+        if (listId) {
+            const allTask = await Task.find({ list: listId });
+            return res.json(allTask);
+        }
+
+        if (boardId) {
+            const allTask = await Task.find({ board: boardId });
+            return res.json(allTask);
+        }
 
     } catch (error) {
         console.log(error);

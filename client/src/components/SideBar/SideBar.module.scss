@@ -1,0 +1,131 @@
+@import "../../styles//global.scss";
+
+.sidbarWrapper {
+	position: relative;
+	height: $pageheight;
+	background-color: $sidebarBg;
+	display: grid;
+	padding-bottom: 10px !important;
+}
+.sidebar {
+	@include flex-column();
+	gap: 20px;
+	width: 12rem;
+	padding: 15px 5px;
+	color: #fff;
+
+	.heading {
+		@include flex-align-center();
+		justify-content: space-between;
+
+		h4 {
+			font-family: "ubuntu";
+			word-wrap: break-word;
+			font-size: 1.3rem;
+			font-weight: 500;
+		}
+		.arrow {
+			background-color: $btnBG;
+			@include flex-center();
+			padding: 2px 3px 2px 0;
+			border-radius: 4px;
+			cursor: pointer;
+
+			img {
+				width: 25px;
+				transform: rotate(90deg);
+			}
+		}
+	}
+}
+
+.boardWrapper {
+	@include flex-column();
+	gap: 15px;
+
+
+	.boardHeadingWrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+
+	.boardHeading {
+		@include flex-align-center();
+		justify-content: space-between;
+		> h5 {
+			font-size: 1rem;
+			font-family: "poppins";
+			font-weight: 500;
+		}
+		> span {
+			@include flex-center();
+			font-size: 2rem;
+			font-weight: bolder;
+			cursor: pointer;
+			height: 2rem;
+			width: 2rem;
+			background-color: $btnBG;
+			border-radius: 5px;
+			user-select: none
+		}
+	}
+
+	.boards {
+		@include flex-column();
+		gap: 10px;
+		padding: 0 5px;
+		max-height: calc($pageheight - 48px - 32px - 15px - 40px - 20px - 30px);
+
+		overflow-y: auto !important;
+		// -ms-overflow-style: none;
+		scrollbar-width: none;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		
+	}
+}
+
+.logoutWrapper {
+	background-color: $btnBG;
+	border-radius: 3px;
+	width: 95%;
+	@include flex-center();
+	cursor: pointer;
+	align-self: flex-end;
+	justify-self: center;
+	max-height: 30px;
+}
+.logout {
+	width: 30px;
+	cursor: pointer;
+}
+
+.singleBoardWrapper {
+	@include flex-column();
+	gap: 5px;
+}
+
+
+
+.createBoard {
+	// border: 1px solid #b5c6d3;
+	background-color: #c0ac92;
+	padding: 5px;
+	@include flex-column();
+	border-radius: 3px;
+	gap: 5px;
+	input {
+		@include outline-none();
+		padding: 3px 5px
+	}
+	.createBtn {
+		@include outline-none();
+		@include Btn-blue();
+		width: 50px;
+	}
+}

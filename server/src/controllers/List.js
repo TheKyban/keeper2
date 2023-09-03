@@ -82,7 +82,7 @@ exports.updateList = async (req, res) => {
         res.json({
             success: true,
             message: 'list updated',
-            board: updatedList
+            list: updatedList
         });
     } catch (error) {
         console.log(error);

@@ -1,0 +1,37 @@
+@import "../../styles//global.scss";
+
+.singleBoardWrapper {
+	@include flex-column();
+	gap: 5px;
+}
+
+.board {
+	@include flex-align-center();
+	gap: 8px;
+	font-size: 0.9rem;
+	font-family: "poppins";
+	cursor: pointer;
+	position: relative;
+	padding: 5px;
+	border-radius: 3px;
+	span {
+		display: block;
+		background-color: $navbarLogoColor;
+		width: 20px;
+		height: 20px;
+		border-radius: 3px;
+	}
+	p {
+		width: fit-content
+	}
+	.threeDot {
+		@include flex-center();
+		padding: 2px 5px;
+		position: absolute;
+		right: 5px;
+		border-radius: 3px;
+	}
+	img {
+		width: 15px;
+	}
+}

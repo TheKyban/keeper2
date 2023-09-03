@@ -1,0 +1,46 @@
+@import "../../styles//global.scss";
+
+.taskWrapper * {
+	margin: 0;
+	padding: 0;
+}
+
+.taskWrapper {
+	background-color: #312f2f;
+	font-family: "poppins";
+	color: #ebebeb;
+	padding: 8px 5px;
+	border-radius: 3px;
+	@include flex-column();
+	gap: 5px;
+
+	h4 {
+		font-size: 0.9rem;
+		font-weight: normal;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+
+	> h6 {
+		padding-left: 5px;
+		font-weight: normal;
+		word-wrap: break-word;
+		// display: none;
+	}
+}
+
+// .taskWrapper:hover h6 {
+// 	display: block;
+// }
+
+.title {
+	@include flex-align-center();
+	justify-content: space-between;
+	gap: 15px;
+
+	img {
+		height: fit-content;
+		width: 20px;
+		cursor: pointer;
+	}
+}

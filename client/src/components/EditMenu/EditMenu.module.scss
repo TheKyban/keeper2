@@ -1,0 +1,39 @@
+@import "../../styles//global.scss";
+
+.editCard {
+	@include flex-column();
+	padding: 5px 5px !important;
+	border-radius: 3px !important;
+	color: black !important;
+    background-color: $BorderColor !important;
+
+	input {
+		@include outline-none();
+		background-color: #c9c9c9;
+		padding: 3px;
+	}
+
+	.btns {
+		display: flex;
+		gap: 15px;
+		margin-top: 5px;
+	}
+
+	.addCardBtn {
+		@include outline-none();
+		@include Btn-blue();
+	}
+
+	.deleteIcon {
+		background-color: transparent;
+		color: #c9c1c1;
+		font-weight: bold;
+		font-size: 1rem;
+		width: 1.5rem;
+		border-radius: 3px;
+
+		&:hover {
+			background-color: #a56191;
+		}
+	}
+}

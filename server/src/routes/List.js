@@ -4,7 +4,7 @@ const { isAuthenticated } = require('../middlewares/isAuthenticated.js');
 const router = Router();
 
 router.post('/create', isAuthenticated, createList);
-router.delete('/delete', isAuthenticated, deleteList);
+router.post('/delete', isAuthenticated, deleteList);
 router.put('/update', isAuthenticated, updateList);
 router.post('/', isAuthenticated, findAllLists);
 

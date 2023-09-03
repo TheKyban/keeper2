@@ -6,6 +6,11 @@ const Schema = new mongoose.Schema({
         ref: 'List',
         required: true
     },
+    board: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Board',
+        required: true
+    },
     name: {
         type: String,
         required: true

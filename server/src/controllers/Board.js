@@ -29,6 +29,7 @@ exports.createBoard = async (req, res) => {
 // delete
 exports.deleteBoard = async (req, res) => {
     const { id } = req.body;
+    
     try {
         if (!id) {
             return res.json({
@@ -65,13 +66,13 @@ exports.updateBoard = async (req, res) => {
 
         // const board = await Board.updateOne({ _id: id }, { name });
         const board = await Board.findByIdAndUpdate(id, { name });
-        const updatedBoard = await Board.findById(board._id);
         if (!board) {
             return res.json({
                 success: false,
                 message: 'invalid board id'
             });
         }
+        const updatedBoard = await Board.findById(board._id);
         res.json({
             success: true,
             message: 'Board updated',
@@ -89,6 +90,6 @@ exports.findAllBoards = async (req, res) => {
         res.json(allBoards);
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 };

@@ -1,0 +1,117 @@
+@import "../../styles/global.scss";
+
+.listWrapper {
+	width: 250px;
+	min-width: 250px;
+	background-color: black;
+	border-radius: 8px;
+	color: #fff;
+	font-family: "ubuntu";
+	padding: 8px 10px;
+	gap: 10px;
+	height: fit-content;
+	align-self: flex-start;
+	@include flex-column();
+}
+
+.top {
+	@include flex-align-center();
+	justify-content: space-between;
+	font-size: 0.9rem;
+}
+
+.threeDot {
+	position: relative;
+
+	img {
+		padding: 0 3px;
+		border-radius: 3px;
+		cursor: pointer;
+		transition: all 0.3s;
+
+		&:hover {
+			background-color: $BorderColor;
+		}
+	}
+}
+.shouldAdd {
+	@include flex-align-center();
+	gap: 10px;
+	border-radius: 5px;
+	padding-left: 10px;
+	transition: all 0.2s;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #696262;
+	}
+
+	> span:first-of-type {
+		font-size: 1.5rem;
+	}
+}
+
+.addCard {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 5px;
+	font-family: "poppins";
+
+	.btns {
+		display: flex;
+		gap: 15px;
+		margin-top: 5px;
+	}
+}
+
+.title,
+.description {
+	outline: none;
+	border: none;
+	font-size: 0.9rem;
+	border-radius: 3px;
+	background-color: #b6adad;
+	font-family: "poppins";
+	padding: 3px 15px;
+	&:focus {
+		outline: none;
+	}
+}
+
+.addCardBtn,
+.exitBtn {
+	outline: none;
+	border: none;
+	font-family: "poppins";
+	transition: all 0.2s;
+	cursor: pointer;
+}
+
+.addCardBtn {
+	padding: 3px 5px;
+	border-radius: 3px;
+	background-color: #3560e0;
+	color: #fff;
+	&:hover {
+		background-color: #5075e7;
+	}
+}
+
+.exitBtn {
+	background-color: transparent;
+	color: #c9c1c1;
+	font-weight: bold;
+	font-size: 1rem;
+	width: 2rem;
+	border-radius: 3px;
+
+	&:hover {
+		background-color: #a56191;
+	}
+}
+
+.task {
+	@include flex-column();
+	gap: 10px;
+}

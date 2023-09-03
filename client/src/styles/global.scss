@@ -19,3 +19,37 @@ $navbarBGcolor: #f9d949;
 $navbarLogoColor: #fff3c4;
 
 $pageheight: calc(100vh - 70px);
+
+//Side bar
+$sidebarBg: #3a9e2d;
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-align-center {
+	display: flex;
+	align-items: center;
+}
+
+@mixin flex-column {
+	display: flex;
+	flex-direction: column;
+}
+
+@mixin outline-none {
+	outline: none;
+	border: none;
+}
+
+@mixin Btn-blue {
+	padding: 3px 5px;
+	border-radius: 3px;
+	background-color: #3560e0;
+	color: #fff;
+	&:hover {
+		background-color: #5075e7;
+	}
+}
