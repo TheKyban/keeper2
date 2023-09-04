@@ -25,3 +25,6 @@ App.use('/task', require('./routes/Task.js'));
 
 
 module.exports = App;
+
+
+// mongosh "mongodb+srv://cluster0.y6eehy3.mongodb.net/" --apiVersion 1 --username aditya

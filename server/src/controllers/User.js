@@ -53,11 +53,12 @@ exports.Register = async (req, res) => {
         /**
          * send response
          */
-
+        console.log(process.env.PRODUCTION);
         res.cookie("token", newUser._id, {
             httpOnly: true,
             expires: 1000 * 60 * 60 * 24, // 24hrs
             maxAge: 1000 * 60 * 60 * 24, // 24hrs
+            secure: process.env.PRODUCTION === 'true' ? true : false
         }).json({
             message: "Successfully registered",
             success: true,
@@ -121,10 +122,12 @@ exports.Login = async (req, res) => {
         /**
          * send response
          */
+        console.log(process.env.PRODUCTION);
         res.cookie("token", isUserExist._id, {
             httpOnly: true,
             expires: 1000 * 60 * 60 * 24, // 24hrs
             maxAge: 1000 * 60 * 60 * 24, // 24hrs
+            secure: process.env.PRODUCTION === 'true' ? true : false
         }).json({
             message: `Welcome back ${isUserExist.firstName}`,
             success: true,
@@ -145,7 +148,8 @@ exports.Logout = async (req, res) => {
     return res.cookie('token', '', {
         httpOnly: true,
         expires: 0, // 24hrs
-        maxAge: 0
+        maxAge: 0,
+        secure: process.env.PRODUCTION
     }).json({
         success: true,
         message: "user logged out"
