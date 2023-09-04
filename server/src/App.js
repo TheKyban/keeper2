@@ -9,7 +9,7 @@ const App = express();
  */
 
 App.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://newkeeper.vercel.app','http://localhost:3000'],
     methods: ['GET', 'POST','PUT',"DELETE"],
     credentials: true
 }));
