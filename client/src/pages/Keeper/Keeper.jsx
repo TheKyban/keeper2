@@ -20,8 +20,10 @@ const Keeper = () => {
     // fetch List on board change or select
     useEffect(() => {
         (async () => {
-            const { data } = await api.fetchLists({ boardId: selectedBoard._id });
-            dispatch(setLists(data));
+            if (selectedBoard?._id) {
+                const { data } = await api.fetchLists({ boardId: selectedBoard._id });
+                dispatch(setLists(data));
+            }
         })();
     }, [selectedBoard]);
 
@@ -30,7 +32,7 @@ const Keeper = () => {
         (async () => {
 
             // checking board and list exists
-            if (selectedBoard._id && lists[0]) {
+            if (selectedBoard?._id && lists[0]) {
                 // fetching tasks
                 const { data } = await api.fetchTasks({ boardId: selectedBoard._id });
 
@@ -73,24 +75,6 @@ const Keeper = () => {
         }
     };
 
-
-    /**
-     * {
-    "draggableId": "64f4b3b1fa4ce6fbaa1cc5b3",
-    "type": "DEFAULT",
-    "source": {
-        "index": "64f4b3b1fa4ce6fbaa1cc5b3",
-        "droppableId": "64f2e59318e35a20ec7e3766"
-    },
-    "reason": "DROP",
-    "mode": "FLUID",
-    "destination": {
-        "droppableId": "64f2e59318e35a20ec7e3766",
-        "index": "64f4a88b9d8860e421063ddc"
-    },
-    "combine": null
-}
-     */
     return (
         <div className={styles.keeper}>
             <div className={styles.left}>
@@ -101,13 +85,20 @@ const Keeper = () => {
                 )}
             </div>
             <div className={styles.right}>
-                <DragDropContext onDragEnd={DragEndHandler}>
-                    {
-                        lists?.[0] && lists?.map((list, idx) => <List key={list._id} list={list} idx={idx} />)
-                    }
-                </DragDropContext>
+                {
+                    selectedBoard?._id && (
+                        <>
+                            <DragDropContext onDragEnd={DragEndHandler}>
+                                {
+                                    lists?.[0] && lists?.map((list, idx) => <List key={list._id} list={list} idx={idx} />)
+                                }
+                            </DragDropContext>
 
-                <CreateList />
+                            <CreateList />
+                        </>
+                    )
+                }
+
             </div>
         </div>
     );

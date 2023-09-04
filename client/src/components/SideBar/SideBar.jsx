@@ -59,7 +59,7 @@ const SideBar = ({ closeHandler }) => {
 						)}
 					</div>
 					<div className={styles.boards}>
-						{boards?.map((board, idx) => (
+						{boards[0] && boards?.map((board, idx) => (
 							<Board board={board} key={board._id} idx={idx} />
 						))}
 					</div>

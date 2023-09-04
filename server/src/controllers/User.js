@@ -57,7 +57,8 @@ exports.Register = async (req, res) => {
             httpOnly: true,
             expires: 1000 * 60 * 60 * 24, // 24hrs
             maxAge: 1000 * 60 * 60 * 24, // 24hrs
-            secure: process.env.PRODUCTION === 'true' ? true : false
+            sameSite: process.env.DEVELOPMENT === "true" ? "lax" : "none",
+            secure: process.env.DEVELOPMENT === "true" ? false : true,
         }).json({
             message: "Successfully registered",
             success: true,
@@ -126,7 +127,8 @@ exports.Login = async (req, res) => {
             httpOnly: true,
             expires: 1000 * 60 * 60 * 24, // 24hrs
             maxAge: 1000 * 60 * 60 * 24, // 24hrs
-            secure: process.env.PRODUCTION === 'true' ? true : false
+            sameSite: process.env.DEVELOPMENT === "true" ? "lax" : "none",
+            secure: process.env.DEVELOPMENT === "true" ? false : true,
         }).json({
             message: `Welcome back ${isUserExist.firstName}`,
             success: true,
