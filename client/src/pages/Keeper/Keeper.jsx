@@ -35,7 +35,7 @@ const Keeper = () => {
                 const { data } = await api.fetchTasks({ boardId: selectedBoard._id });
 
                 // short tasks
-                const tempTasks = new Array;
+                const tempTasks = new Array();
                 for (let i = 0; i < lists.length; i++) {
                     tempTasks.push({ id: lists[i]._id, tasks: [] });
                 }
@@ -48,7 +48,6 @@ const Keeper = () => {
                         }
                     }
                 }
-
                 // set to state
                 dispatch(setTasks(tempTasks));
             }
@@ -56,11 +55,22 @@ const Keeper = () => {
     }, [lists]);
 
 
-    const DragEndHandler = (result) => {
-        const { source, destination } = result;
-        if (source.droppableId === destination.droppableId && source.index === destination.index) return;
+    const DragEndHandler = async (result) => {
+        try {
+            console.log(result);
+            const { source, destination, draggableId } = result;
+            if (!destination.droppableId || destination.index === undefined) return;
+            if (source.droppableId === destination.droppableId && source.index === destination.index) return;
 
-        // dispatch(switchTask({ source, destination }));
+            // change in redux store
+            dispatch(switchTask({ source, destination }));
+
+            // change in backend db
+            const { data } = await api.changeTaskPosition({ taskId: draggableId, listId: destination.droppableId, position: destination.index });
+
+        } catch (error) {
+            console.log(error);
+        }
     };
 
 

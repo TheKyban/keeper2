@@ -42,62 +42,64 @@ const List = ({ list, idx }) => {
     };
 
     return (
-        <div className={styles.listWrapper}>
-            <div className={styles.top}>
-                <span>{name}</span>
-                <div className={styles.threeDot}>
-                    <img
-                        src={threeDot}
-                        alt="menu"
-                        style={{ backgroundColor: shoudEdit && "#eeeedb" }}
-                        onClick={() => setShouldEdit(!shoudEdit)}
-                    />
-                    {shoudEdit && (
-                        <EditMenu
-                            style={{
-                                position: "absolute",
-                                top: "30px",
-                                right: 0,
-                            }}
-                            currentName={name}
-                            updateHandler={updateHandler}
-                            deleteHandler={deleteHandler}
-                        />
-                    )}
-                </div>
-            </div>
-            {
-                <Droppable droppableId={`${id}-${idx}`}>
-                    {(provided, snapshot) => (
-                        <div
-                            className={styles.task}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            {/* Task Here */}
+            <Droppable droppableId={id}>
+                {(provided) => (
+                    <div
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                        className={styles.listWrapper}
+                    >
 
-                            {tasks && tasks.map((task, idx) => {
+                        <div className={styles.top}>
+                            <span>{name}</span>
+                            <div className={styles.threeDot}>
+                                <img
+                                    src={threeDot}
+                                    alt="menu"
+                                    style={{ backgroundColor: shoudEdit && "#eeeedb" }}
+                                    onClick={() => setShouldEdit(!shoudEdit)}
+                                />
+                                {/* Edit Menu for List */}
+                                {shoudEdit && (
+                                    <EditMenu
+                                        style={{
+                                            position: "absolute",
+                                            top: "30px",
+                                            right: 0,
+                                        }}
+                                        currentName={name}
+                                        updateHandler={updateHandler}
+                                        deleteHandler={deleteHandler}
+                                    />
+                                )}
+                            </div>
+                        </div>
+                        <div className={styles.task}>
+
+                            {/* Task Here */}
+                            {tasks?.[0] && tasks.map((task, idx) => {
                                 return <Task task={task} index={idx} key={task._id} />;
                             })}
                             {provided.placeholder}
                         </div>
-                    )}
-                </Droppable>
-            }
-            <div className={styles.bottom}>
-                {shoudAdd ? (
-                    <AddTask setShouldAdd={setShouldAdd} shoudAdd={shoudAdd} listId={id} idx={idx} />
-                ) : (
-                    <div
-                        className={styles.shouldAdd}
-                        onClick={() => setShouldAdd(!shoudAdd)}
-                    >
-                        <span>+</span>
-                        <span>Add a card</span>
+
+                        {/* Task Add */}
+                        <div className={styles.bottom}>
+                            {shoudAdd ? (
+                                <AddTask tasks={tasks} setShouldAdd={setShouldAdd} shoudAdd={shoudAdd} listId={id} idx={idx} />
+                            ) : (
+                                <div
+                                    className={styles.shouldAdd}
+                                    onClick={() => setShouldAdd(!shoudAdd)}
+                                >
+                                    <span>+</span>
+                                    <span>Add a card</span>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 )}
-            </div>
-        </div>
+            </Droppable>
     );
 };
 

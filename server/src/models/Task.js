@@ -17,7 +17,8 @@ const Schema = new mongoose.Schema({
     },
     description: {
         type: String
-    }
+    },
+    position: { type: Number }
 }, { timestamps: true });
 
 const Task = mongoose.model('Task', Schema);

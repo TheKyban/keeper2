@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import api from "../../api/api";
 
 const taskSlice = createSlice({
     name: "task",
     initialState: {
         tasks: [{ id: "", tasks: [] }]
     },
+
     reducers: {
         setTasks: (state, actions) => {
             state.tasks = actions.payload;
@@ -14,36 +14,54 @@ const taskSlice = createSlice({
             const { idx, task } = actions.payload;
             state.tasks[idx].tasks.push(task);
         },
-        switchTask: async (state, action) => {
+        switchTask: (state, action) => {
             const { source, destination } = action.payload;
-            const desIndex = destination.index;
-            const [destId, dlistIdx] = destination.droppableId.split('-');
-            const [sourceId, slistIdx] = source.droppableId.split('-');
+            let task;
 
-            const desList = state.tasks[dlistIdx];
-            const isAnotherTaskExist = destination.index <= (desList.tasks.length - 1);
-            console.log(isAnotherTaskExist);
+            // delete from source
+            for (let i = 0; i < state.tasks.length; i++) {
+                if (state.tasks[i].id === source.droppableId) {
 
-            const task = state.tasks[slistIdx].tasks[source.index];
-            task.list = destId;
+                    task = JSON.parse(JSON.stringify(state.tasks[i].tasks.splice(source.index, 1)))[0];
 
-            //delete task
-            state.tasks[slistIdx].tasks.splice(source.index, 1);
-
-            // add to another list
-            state.tasks[dlistIdx].tasks.splice(destination.index, 0, task);
-
-            if (!isAnotherTaskExist) {
-                // create task
-                api.createTask({ listId: task.list, boardId: task.board, name: task.name, description: task.description });
-                // delete task
-                api.deleteTask({ id: task._id });
-                // console.log(data);
+                    break;
+                }
             }
-            console.log(JSON.parse(JSON.stringify(task)));
+
+            // change list id of task to destination list id
+            task.list = destination.droppableId;
+
+            // add to destination
+            for (let i = 0; i < state.tasks.length; i++) {
+                if (state.tasks[i].id === destination.droppableId) {
+                    state.tasks[i].tasks.splice(destination.index, 0, task);
+                    break;
+                }
+            }
+        },
+        updateTask: (state, action) => {
+            const { task, index } = action.payload;
+
+            for (let i = 0; i < state.tasks.length; i++) {
+                if (state.tasks[i].id === task.list) {
+                    state.tasks[i].tasks[index].name = task.name;
+                    state.tasks[i].tasks[index].description = task.description;
+                    break;
+                }
+            }
+        },
+        deleteTask: (state, action) => {
+            const { task, index } = action.payload;
+            for (let i = 0; i < state.tasks.length; i++) {
+                if (state.tasks[i].id === task.list) {
+                    state.tasks[i].tasks.splice(index, 1);
+                    break;
+                }
+            }
         }
-    }
+    },
+
 });
 
-export const { setTasks, addTask, switchTask } = taskSlice.actions;
+export const { setTasks, addTask, switchTask, updateTask, deleteTask } = taskSlice.actions;
 export default taskSlice.reducer;

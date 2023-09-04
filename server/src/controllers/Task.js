@@ -19,12 +19,13 @@ exports.createTask = async (req, res) => {
                 message: "invalid list id"
             });
         }
-
+        const position = (await Task.find({ list: listId })).length;
         const task = await Task.create({
             board: boardId,
             list: listId,
             name: name ? name : "untitled",
-            description
+            description,
+            position
         });
 
         res.json({
@@ -38,17 +39,17 @@ exports.createTask = async (req, res) => {
 };
 // delete task
 exports.deleteTask = async (req, res) => {
-    const { id } = req.body;
+    const { task } = req.body;
     try {
-        if (!id) {
+        if (!task) {
             return res.json({
                 success: false,
-                message: 'Provide task id'
+                message: 'provide task'
             });
         }
 
-        const task = await Task.findByIdAndDelete(id);
-        if (!task) {
+        const deletedTask = await Task.findByIdAndDelete(task._id);
+        if (!deletedTask) {
             return res.json({
                 success: false,
                 message: 'invalid task id'
@@ -58,22 +59,35 @@ exports.deleteTask = async (req, res) => {
             success: true,
             message: 'task deleted',
         });
+
+        // decrease position in sourceList
+        const allSourceTasks = await Task.find({ list: task.list });
+
+        if (allSourceTasks.length === 0) return;
+
+        for (let i = task.position; i < allSourceTasks.length; i++) {
+            allSourceTasks[i].position--;
+            allSourceTasks[i].save();
+        }
     } catch (error) {
         console.log(error);
     }
 };
 // update list
 exports.updateTask = async (req, res) => {
-    const { id, name, description, listId } = req.body;
+    const { id, name, description } = req.body;
     try {
         if (!id) {
             return res.json({
                 success: false,
-                message: 'Provide  task id'
+                message: 'Provide task id'
             });
         }
 
-        const task = await Task.findByIdAndUpdate(id, { name, description, list: listId });
+
+
+
+        const task = await Task.findByIdAndUpdate(id, { name, description });
 
         if (!task) {
             return res.json({
@@ -81,12 +95,13 @@ exports.updateTask = async (req, res) => {
                 message: 'invalid task id'
             });
         }
-        const updatedTask = await Task.findById(id);
         res.json({
             success: true,
-            message: 'task updated',
-            board: updatedTask
+            message: 'Task updated',
         });
+
+
+
     } catch (error) {
         console.log(error);
     }
@@ -102,15 +117,61 @@ exports.findAllTasks = async (req, res) => {
             });
         }
         if (listId) {
-            const allTask = await Task.find({ list: listId });
+            const allTask = await Task.find({ list: listId }).sort('position');
             return res.json(allTask);
         }
 
         if (boardId) {
-            const allTask = await Task.find({ board: boardId });
+            const allTask = await Task.find({ board: boardId }).sort('position');
             return res.json(allTask);
         }
 
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.changeTaskPostion = async (req, res) => {
+    const { taskId, listId, position } = req.body;
+    try {
+        if (!taskId || !listId || position === undefined) return;
+
+        // increase postion on destinationList
+        const allTasks = await Task.find({ list: listId });
+
+        if (allTasks[position]?.position === position) {
+            for (let i = position; i < allTasks.length; i++) {
+                allTasks[i].position++;
+                allTasks[i].save();
+            }
+        }
+
+        const task = await Task.findByIdAndUpdate(taskId, {
+            list: listId,
+            position
+        });
+
+
+        // decrease position in sourceList
+        const allSourceTasks = await Task.find({ list: task.list });
+        if (allSourceTasks[position]?.position > position) {
+            for (let i = position; i < allSourceTasks.length; i++) {
+                allSourceTasks[i].position--;
+                allSourceTasks[i].save();
+            }
+        }
+
+        if (!task) {
+            return res.json({
+                message: "invalid Task id",
+                success: false
+            });
+        }
+
+        res.json({
+            message: "position updated",
+            success: true
+        });
     } catch (error) {
         console.log(error);
     }

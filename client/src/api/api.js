@@ -22,7 +22,8 @@ const api = {
     fetchTasks: (props) => client.post('/task', props),
     updateTask: (props) => client.put('/task/update', props),
     createTask: (props) => client.post('/task/create', props),
-    deleteTask: (props) => client.post('/task/delete', props)
+    deleteTask: (props) => client.post('/task/delete', props),
+    changeTaskPosition: (props) => client.post('/task/position', props)
 };
 
 export default api;
