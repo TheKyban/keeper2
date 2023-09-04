@@ -53,7 +53,6 @@ exports.Register = async (req, res) => {
         /**
          * send response
          */
-        console.log(process.env.PRODUCTION);
         res.cookie("token", newUser._id, {
             httpOnly: true,
             expires: 1000 * 60 * 60 * 24, // 24hrs
